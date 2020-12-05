@@ -11,8 +11,10 @@ spring:
       discovery:
         # 指定nacos server的地址
         server-addr: 192.168.50.107:8848
+        # 指定集群名称
         cluster-name: BJ
-        # namespace: 56116141-d837-4d15-8842-94e153bb6cfb
+        # 指定namespace
+        namespace: d791c206-35b6-4256-907a-81f4672f2454
     sentinel:
       filter:
         # 打开/关闭掉对Spring MVC端点的保护
@@ -63,8 +65,8 @@ feign:
       # 全局配置
       default:
         loggerLevel: full
-#        requestInterceptors:
-#          - com.itmuch.contentcenter.feignclient.interceptor.TokenRelayRequestIntecepor
+  #        requestInterceptors:
+  #          - com.itmuch.contentcenter.feignclient.interceptor.TokenRelayRequestIntecepor
   httpclient:
     # 让feign使用apache httpclient做请求；而不是默认的urlconnection
     enabled: true

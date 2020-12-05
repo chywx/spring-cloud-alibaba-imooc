@@ -11,15 +11,10 @@ spring:
       discovery:
         # 指定nacos server的地址
         server-addr: 192.168.50.107:8848
-        # 指定namespace
-        # namespace: 56116141-d837-4d15-8842-94e153bb6cfb
-        # NJ
         # 指定集群名称
-#        cluster-name: BJ
-#        metadata:
-#          instance: c
-#          haha: hehe
-#          version: v1
+        cluster-name: BJ
+        # 指定namespace
+        namespace: d791c206-35b6-4256-907a-81f4672f2454
     stream:
       rocketmq:
         binder:
