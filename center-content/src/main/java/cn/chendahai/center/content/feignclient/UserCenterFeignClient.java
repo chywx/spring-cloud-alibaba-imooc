@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 //@FeignClient(name = "user-center", configuration = GlobalFeignConfiguration.class)
-@FeignClient(name = "center-center",
+@FeignClient(name = "center-user",
 //    fallback = UserCenterFeignClientFallback.class,
     fallbackFactory = UserCenterFeignClientFallbackFactory.class
 )

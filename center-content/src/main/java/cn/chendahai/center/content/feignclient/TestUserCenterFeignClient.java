@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient(name = "center-center")
+@FeignClient(name = "center-user")
 public interface TestUserCenterFeignClient {
     @GetMapping("/q")
     UserDTO query(@SpringQueryMap UserDTO userDTO);

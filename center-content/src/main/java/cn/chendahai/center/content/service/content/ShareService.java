@@ -1,15 +1,13 @@
 package cn.chendahai.center.content.service.content;
 
+import cn.chendahai.center.content.dao.content.ShareMapper;
+import cn.chendahai.center.content.dao.messaging.RocketmqTransactionLogMapper;
 import cn.chendahai.center.content.domain.dto.content.ShareAuditDTO;
 import cn.chendahai.center.content.domain.dto.content.ShareDTO;
-import cn.chendahai.center.content.domain.dto.messaging.UserAddBonusMsgDTO;
 import cn.chendahai.center.content.domain.dto.user.UserDTO;
 import cn.chendahai.center.content.domain.entity.content.Share;
 import cn.chendahai.center.content.domain.enums.AuditStatusEnum;
-import cn.chendahai.center.content.dao.content.ShareMapper;
-import cn.chendahai.center.content.dao.messaging.RocketmqTransactionLogMapper;
 import cn.chendahai.center.content.feignclient.UserCenterFeignClient;
-import com.alibaba.fastjson.JSON;
 import java.util.Objects;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +26,7 @@ public class ShareService {
 
     private final ShareMapper shareMapper;
     private final UserCenterFeignClient userCenterFeignClient;
-//    private final RocketMQTemplate rocketMQTemplate;
+    //    private final RocketMQTemplate rocketMQTemplate;
     private final RocketmqTransactionLogMapper rocketmqTransactionLogMapper;
 
     public ShareDTO findById(Integer id) {
@@ -54,7 +52,7 @@ public class ShareService {
         RestTemplate restTemplate = new RestTemplate();
         // 用HTTP GET方法去请求，并且返回一个对象
         ResponseEntity<String> forEntity = restTemplate.getForEntity(
-            "http://localhost:8080/users/{id}",
+            "http://localhost:8081/users/{id}",
             String.class, 2
         );
 

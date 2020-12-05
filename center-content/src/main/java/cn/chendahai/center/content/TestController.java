@@ -197,7 +197,7 @@ public class TestController {
     public UserDTO test(@PathVariable Integer userId) {
         return this.restTemplate
             .getForObject(
-                "http://center-center/users/{userId}",
+                "http://center-user/users/{userId}",
                 UserDTO.class, userId);
     }
 
@@ -209,7 +209,7 @@ public class TestController {
 
         return this.restTemplate
             .exchange(
-                "http://center-center/users/{userId}",
+                "http://center-user/users/{userId}",
                 HttpMethod.GET,
                 new HttpEntity<>(headers),
                 UserDTO.class,
