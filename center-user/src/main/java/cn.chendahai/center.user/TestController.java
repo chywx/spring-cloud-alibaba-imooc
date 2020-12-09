@@ -12,6 +12,7 @@ import java.util.Date;
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TestController {
+
     /**
      * // 作业1：课后研究一下@Resource和@Autowired的区别
      * // 面试题
@@ -33,6 +34,7 @@ public class TestController {
     // q?id=1&wxId=aaa&...
     @GetMapping("/q")
     public User query(User user) {
+        System.out.println("enter:" + new Date());
         return user;
     }
 }
