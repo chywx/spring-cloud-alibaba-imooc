@@ -8,6 +8,7 @@ import cn.chendahai.center.content.domain.dto.user.UserDTO;
 import cn.chendahai.center.content.domain.entity.content.Share;
 import cn.chendahai.center.content.domain.enums.AuditStatusEnum;
 import cn.chendahai.center.content.feignclient.UserCenterFeignClient;
+import com.alibaba.fastjson.JSONObject;
 import java.util.Objects;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,7 @@ public class ShareService {
     public ShareDTO findById(Integer id) {
         // 获取分享详情
         Share share = this.shareMapper.selectByPrimaryKey(id);
+        log.error(">>>share {}", JSONObject.toJSONString(share));
         // 发布人id
         Integer userId = share.getUserId();
 

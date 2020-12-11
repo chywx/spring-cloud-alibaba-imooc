@@ -1,6 +1,8 @@
 server:
   port: 8010
 spring:
+  profiles:
+    active: chy
   datasource:
     url: jdbc:mysql://localhost:3306/center_content
     hikari:
@@ -43,6 +45,7 @@ spring:
 
   main:
     allow-bean-definition-overriding: true
+
 
 
 #user-center:

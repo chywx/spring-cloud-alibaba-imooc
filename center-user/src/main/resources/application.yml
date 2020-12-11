@@ -1,6 +1,8 @@
 server:
   port: 8082
 spring:
+  profiles:
+    active: chy
   datasource:
     url: jdbc:mysql://localhost:3306/center_user
     hikari:
