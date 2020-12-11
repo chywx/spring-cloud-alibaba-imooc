@@ -20,6 +20,7 @@ public class ShareConroller {
     @GetMapping("/{id}")
     @CheckLogin
     public ShareDTO findById(@PathVariable Integer id) {
+        System.out.println("a guang");
         return this.shareService.findById(id);
     }
 }
