@@ -32,4 +32,9 @@ public class BonusController {
         );
         return this.userService.findById(userId);
     }
+
+    @PutMapping("/receive")
+    public void receive(@RequestBody UserAddBonseDTO userAddBonseDTO) {
+        userService.receive(userAddBonseDTO);
+    }
 }

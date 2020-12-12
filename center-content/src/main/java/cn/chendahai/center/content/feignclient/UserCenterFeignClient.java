@@ -27,4 +27,7 @@ public interface UserCenterFeignClient {
 
     @PutMapping("/users/add-bonus")
     void addBonus(@RequestBody UserAddBonusMsgDTO userAddBonusMsgDTO);
+
+    @PutMapping("/users/receive")
+    void receive(@RequestBody UserAddBonusMsgDTO userAddBonusMsgDTO);
 }

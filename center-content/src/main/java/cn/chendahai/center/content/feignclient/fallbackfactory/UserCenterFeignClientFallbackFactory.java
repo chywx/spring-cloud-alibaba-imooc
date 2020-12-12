@@ -26,6 +26,11 @@ public class UserCenterFeignClientFallbackFactory implements FallbackFactory<Use
             public void addBonus(UserAddBonusMsgDTO userAddBonusMsgDTO) {
                 log.warn("addBonus 远程调用被限流/降级了", userAddBonusMsgDTO);
             }
+
+            @Override
+            public void receive(UserAddBonusMsgDTO userAddBonusMsgDTO) {
+                log.warn("receive 远程调用被限流/降级了", userAddBonusMsgDTO);
+            }
         };
     }
 }

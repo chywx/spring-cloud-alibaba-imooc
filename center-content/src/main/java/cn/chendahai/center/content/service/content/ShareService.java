@@ -79,13 +79,12 @@ public class ShareService {
         // 3. 如果是PASS，那么发送消息给rocketmq，让用户中心去消费，并为发布人添加积分
         if (AuditStatusEnum.PASS.equals(auditDTO.getAuditStatusEnum())) {
             // 发送半消息。。
-            String transactionId = UUID.randomUUID().toString();
 
             UserAddBonusMsgDTO userAddBonusMsgDTO = UserAddBonusMsgDTO.builder()
                 .userId(share.getUserId())
-                .bonus(50)
+                .bonus(5)
                 .build();
-            userCenterFeignClient.addBonus(userAddBonusMsgDTO);
+            userCenterFeignClient.receive(userAddBonusMsgDTO);
 //            this.source.output()
 //                .send(
 //                    MessageBuilder

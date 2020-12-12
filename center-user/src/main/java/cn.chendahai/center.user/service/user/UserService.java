@@ -3,6 +3,7 @@ package cn.chendahai.center.user.service.user;
 import cn.chendahai.center.user.dao.bonus.BonusEventLogMapper;
 import cn.chendahai.center.user.dao.user.UserMapper;
 import cn.chendahai.center.user.domain.dto.messaging.UserAddBonusMsgDTO;
+import cn.chendahai.center.user.domain.dto.user.UserAddBonseDTO;
 import cn.chendahai.center.user.domain.dto.user.UserLoginDTO;
 import cn.chendahai.center.user.domain.entity.bonus.BonusEventLog;
 import cn.chendahai.center.user.domain.entity.user.User;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Slf4j
 @Service
@@ -50,6 +52,17 @@ public class UserService {
                 .build()
         );
         log.info("积分添加完毕...");
+    }
+
+    public void receive(UserAddBonseDTO userAddBonseDTO) {
+        BonusEventLog bonusEventLog = BonusEventLog.builder()
+            .userId(userAddBonseDTO.getUserId())
+            .value(userAddBonseDTO.getBonus())
+            .event("CONTRIBUTE")
+            .createTime(new Date())
+            .description("chy desc")
+            .build();
+        bonusEventLogMapper.insert(bonusEventLog);
     }
 
     public User login(UserLoginDTO loginDTO, String openId) {
