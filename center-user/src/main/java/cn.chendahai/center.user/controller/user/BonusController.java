@@ -20,6 +20,7 @@ public class BonusController {
 
     @PutMapping("/add-bonus")
     public User addBonus(@RequestBody UserAddBonseDTO userAddBonseDTO) {
+        System.out.println(">>>enter controller add-bonus");
         Integer userId = userAddBonseDTO.getUserId();
         userService.addBonus(
             UserAddBonusMsgDTO.builder()

@@ -6,6 +6,7 @@ import cn.chendahai.center.user.domain.dto.messaging.UserAddBonusMsgDTO;
 import cn.chendahai.center.user.domain.dto.user.UserLoginDTO;
 import cn.chendahai.center.user.domain.entity.bonus.BonusEventLog;
 import cn.chendahai.center.user.domain.entity.user.User;
+import com.alibaba.fastjson.JSONObject;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.Date;
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class UserService {
+
     private final UserMapper userMapper;
     private final BonusEventLogMapper bonusEventLogMapper;
 
@@ -28,6 +30,7 @@ public class UserService {
 
     @Transactional(rollbackFor = Exception.class)
     public void addBonus(UserAddBonusMsgDTO msgDTO) {
+        System.out.println(">>>addBonus>>>" + JSONObject.toJSONString(msgDTO));
         // 1. 为用户加积分
         Integer userId = msgDTO.getUserId();
         Integer bonus = msgDTO.getBonus();
@@ -49,7 +52,7 @@ public class UserService {
         log.info("积分添加完毕...");
     }
 
-    public User login(UserLoginDTO loginDTO, String openId){
+    public User login(UserLoginDTO loginDTO, String openId) {
         User user = this.userMapper.selectOne(
             User.builder()
                 .wxId(openId)

@@ -4,6 +4,7 @@ import cn.chendahai.center.content.dao.content.ShareMapper;
 import cn.chendahai.center.content.dao.messaging.RocketmqTransactionLogMapper;
 import cn.chendahai.center.content.domain.dto.content.ShareAuditDTO;
 import cn.chendahai.center.content.domain.dto.content.ShareDTO;
+import cn.chendahai.center.content.domain.dto.messaging.UserAddBonusMsgDTO;
 import cn.chendahai.center.content.domain.dto.user.UserDTO;
 import cn.chendahai.center.content.domain.entity.content.Share;
 import cn.chendahai.center.content.domain.enums.AuditStatusEnum;
@@ -80,6 +81,11 @@ public class ShareService {
             // 发送半消息。。
             String transactionId = UUID.randomUUID().toString();
 
+            UserAddBonusMsgDTO userAddBonusMsgDTO = UserAddBonusMsgDTO.builder()
+                .userId(share.getUserId())
+                .bonus(50)
+                .build();
+            userCenterFeignClient.addBonus(userAddBonusMsgDTO);
 //            this.source.output()
 //                .send(
 //                    MessageBuilder
