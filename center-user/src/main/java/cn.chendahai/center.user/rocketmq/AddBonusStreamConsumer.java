@@ -1,12 +1,7 @@
 //package cn.chendahai.center.user.rocketmq;
 //
+//import cn.chendahai.center.user.domain.dto.messaging.UserAddBonusMsgDTO;
 //import cn.chendahai.center.user.service.user.UserService;
-//import com.itmuch.usercenter.dao.bonus.BonusEventLogMapper;
-//import com.itmuch.usercenter.dao.user.UserMapper;
-//import com.itmuch.usercenter.domain.dto.messaging.UserAddBonusMsgDTO;
-//import com.itmuch.usercenter.domain.entity.bonus.BonusEventLog;
-//import com.itmuch.usercenter.domain.entity.user.User;
-//import com.itmuch.usercenter.service.user.UserService;
 //import lombok.RequiredArgsConstructor;
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +13,7 @@
 //@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 //@Slf4j
 //public class AddBonusStreamConsumer {
+//
 //    private final UserService userService;
 //
 //    @StreamListener(Sink.INPUT)

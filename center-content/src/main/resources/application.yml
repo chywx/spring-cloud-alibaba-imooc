@@ -30,11 +30,6 @@ spring:
       rocketmq:
         binder:
           name-server: inner-mq.gbank.club:9876
-        bindings:
-          output:
-            producer:
-              transactional: true
-              group: tx-add-bonus-group
       bindings:
         output:
           # 用来指定topic
