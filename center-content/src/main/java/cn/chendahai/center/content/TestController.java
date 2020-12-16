@@ -15,6 +15,7 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,6 +76,8 @@ public class TestController {
     public List<ServiceInstance> getInstances() {
         // 查询指定服务的所有实例的信息
         // consul/eureka/zookeeper...
+        List<ServiceInstance> instances = discoveryClient.getInstances("center-content");
+        System.out.println("instances >>> " + JSONObject.toJSONString(instances));
         return this.discoveryClient.getInstances("center-user");
     }
 

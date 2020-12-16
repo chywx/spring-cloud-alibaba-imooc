@@ -12,6 +12,7 @@
   <modules>
     <module>center-content</module>
     <module>center-user</module>
+    <module>gateway</module>
   </modules>
 
   <name>spring-cloud-alibaba-imooc</name>
