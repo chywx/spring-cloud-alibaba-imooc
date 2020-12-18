@@ -12,6 +12,7 @@ spring:
       discovery:
         locator:
           enabled: true
+
 #      routes:
 #        - id: user_route
 #          uri: lb://center-user
@@ -22,6 +23,7 @@ spring:
 #          predicates:
 #            - Path=/shares/**,/admin/**
 
+# http://localhost:8040/actuator/gateway/routes 展示所有路由列表
 management:
   endpoints:
     web:
