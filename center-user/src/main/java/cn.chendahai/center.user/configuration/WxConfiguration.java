@@ -12,8 +12,8 @@ public class WxConfiguration {
     @Bean
     public WxMaConfig wxMaConfig() {
         WxMaDefaultConfigImpl config = new WxMaDefaultConfigImpl();
-        config.setAppid("wx5398457df5368458");
-        config.setSecret("9ec68b33ae9a8e4db5a92c2e24ef4aea");
+        config.setAppid("wx8baf722f5ca19c14");
+        config.setSecret("3d84dfab2b304c6ebe489cd3d646a9cd");
         return config;
     }
 

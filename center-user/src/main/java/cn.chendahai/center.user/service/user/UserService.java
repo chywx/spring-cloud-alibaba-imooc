@@ -25,6 +25,11 @@ public class UserService {
     private final UserMapper userMapper;
     private final BonusEventLogMapper bonusEventLogMapper;
 
+    public static void main(String[] args) {
+        String str = "\uD83C\uDDE9 \uD83C\uDDFE \uD83C\uDDF1 \uD83C\uDDE6 \uD83C\uDDF3";
+        System.out.println(str);
+    }
+
     public User findById(Integer id) {
         // select * from user where id = #{id}
         return this.userMapper.selectByPrimaryKey(id);

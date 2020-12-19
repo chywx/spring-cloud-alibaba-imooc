@@ -14,15 +14,15 @@ spring:
           enabled: true
       default-filters:
         - PreLog=a,b
-#      routes:
-#        - id: user_route
-#          uri: lb://center-user
-#          predicates:
-#            - Path=/users/**
-#        - id: content_route
-#          uri: lb://center-content
-#          predicates:
-#            - Path=/shares/**,/admin/**
+      routes:
+        - id: user_route
+          uri: lb://center-user
+          predicates:
+            - Path=/users/**
+        - id: content_route
+          uri: lb://center-content
+          predicates:
+            - Path=/shares/**,/admin/**
 
 # http://localhost:8040/actuator/gateway/routes 展示所有路由列表
 management:
