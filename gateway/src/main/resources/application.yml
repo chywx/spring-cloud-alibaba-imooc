@@ -12,7 +12,8 @@ spring:
       discovery:
         locator:
           enabled: true
-
+      default-filters:
+        - PreLog=a,b
 #      routes:
 #        - id: user_route
 #          uri: lb://center-user
