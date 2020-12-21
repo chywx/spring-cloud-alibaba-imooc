@@ -19,8 +19,10 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -41,6 +43,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RefreshScope
 public class TestController {
 
     @Autowired(required = false)
@@ -235,5 +238,14 @@ public class TestController {
                 UserDTO.class,
                 userId
             );
+    }
+
+
+    @Value("${your.key}")
+    private String yourKey;
+
+    @GetMapping("/getYourKey")
+    public String getYourKey() {
+        return yourKey;
     }
 }

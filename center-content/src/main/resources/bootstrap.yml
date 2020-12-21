@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: chy
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.50.107:8848
+        cluster-name: BJ
+        namespace: d791c206-35b6-4256-907a-81f4672f2454
+        file-extension: yaml
+
+  application:
+    # 服务名称尽量用-，不要用_，不要用特殊字符
+    name: center-content
