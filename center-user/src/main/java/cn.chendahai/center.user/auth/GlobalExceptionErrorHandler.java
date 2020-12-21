@@ -1,5 +1,6 @@
 package cn.chendahai.center.user.auth;
 
+import cn.chendahai.center.user.security.SecurityException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

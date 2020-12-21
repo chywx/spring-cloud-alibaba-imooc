@@ -33,6 +33,6 @@ management:
   endpoint:
     health:
       show-details: always
-logging:
-  level:
-    org.springframework.cloud.gateway: trace
+#logging:
+#  level:
+#    org.springframework.cloud.gateway: trace

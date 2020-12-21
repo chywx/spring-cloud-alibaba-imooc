@@ -1,5 +1,6 @@
 package cn.chendahai.center.user.auth;
 
+import cn.chendahai.center.user.security.SecurityException;
 import cn.chendahai.center.user.util.JwtOperator;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,11 @@ import java.util.Objects;
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AuthAspect {
+
     private final JwtOperator jwtOperator;
 
-    @Around("@annotation(cn.chendahai.center.user.auth.CheckLogin)")
+    //    @Around("@annotation(cn.chendahai.center.user.auth.CheckLogin)")
+    @Around("@annotation(CheckLogin)")
     public Object checkLogin(ProceedingJoinPoint point) throws Throwable {
         checkToken();
         return point.proceed();
@@ -58,7 +61,7 @@ public class AuthAspect {
         return attributes.getRequest();
     }
 
-    @Around("@annotation(cn.chendahai.center.user.auth.CheckAuthorization)")
+    @Around("@annotation(CheckAuthorization)")
     public Object checkAuthorization(ProceedingJoinPoint point) throws Throwable {
         try {
             // 1. 验证token是否合法；
