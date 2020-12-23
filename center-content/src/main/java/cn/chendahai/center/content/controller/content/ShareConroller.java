@@ -1,8 +1,11 @@
 package cn.chendahai.center.content.controller.content;
 
 import cn.chendahai.center.content.auth.CheckLogin;
+import cn.chendahai.center.content.domain.dto.content.PageDTO;
 import cn.chendahai.center.content.domain.dto.content.ShareDTO;
+import cn.chendahai.center.content.domain.entity.content.Share;
 import cn.chendahai.center.content.service.content.ShareService;
+import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,5 +24,10 @@ public class ShareConroller {
     @CheckLogin
     public ShareDTO findById(@PathVariable Integer id) {
         return this.shareService.findById(id);
+    }
+
+    @GetMapping("/q")
+    public PageInfo<Share> q(String title, PageDTO pageDTO) {
+        return shareService.q(title, pageDTO);
     }
 }

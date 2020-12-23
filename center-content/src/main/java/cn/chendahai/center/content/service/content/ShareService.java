@@ -2,6 +2,7 @@ package cn.chendahai.center.content.service.content;
 
 import cn.chendahai.center.content.dao.content.ShareMapper;
 import cn.chendahai.center.content.dao.messaging.RocketmqTransactionLogMapper;
+import cn.chendahai.center.content.domain.dto.content.PageDTO;
 import cn.chendahai.center.content.domain.dto.content.ShareAuditDTO;
 import cn.chendahai.center.content.domain.dto.content.ShareDTO;
 import cn.chendahai.center.content.domain.dto.messaging.UserAddBonusMsgDTO;
@@ -10,8 +11,10 @@ import cn.chendahai.center.content.domain.entity.content.Share;
 import cn.chendahai.center.content.domain.enums.AuditStatusEnum;
 import cn.chendahai.center.content.feignclient.UserCenterFeignClient;
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -116,6 +119,12 @@ public class ShareService {
         this.shareMapper.updateByPrimaryKeySelective(share);
 
         // 4. 把share写到缓存
+    }
+
+    public PageInfo<Share> q(String title, PageDTO pageDTO) {
+        PageHelper.startPage(pageDTO.getPageNo(), pageDTO.getPageSize());
+        List<Share> shares = this.shareMapper.selectByParam(title);
+        return new PageInfo<>(shares);
     }
 
 //    @Transactional(rollbackFor = Exception.class)
