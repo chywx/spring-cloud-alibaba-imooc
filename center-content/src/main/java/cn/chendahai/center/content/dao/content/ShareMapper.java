@@ -9,6 +9,5 @@ import tk.mybatis.mapper.common.Mapper;
 
 public interface ShareMapper extends Mapper<Share> {
 
-    @Select("select * from share")
     List<Share> selectByParam(@Param("title") String title);
 }

@@ -98,8 +98,3 @@ jwt:
   secret: aaaaaaabbbbbbcccccdddddaaaaaaabbbbbbcccccdddddaaaaaaabbbbbbcccccddddd
   # 有效期，单位秒，默认2周
   expire-time-in-second: 1209600
-
-mybatis:
-  mapper-locations: classpath:*Mapper.xml
-  mybatis-plus:
-    mapper-locations: classpath:*Mapper.xml

@@ -22,5 +22,15 @@
     <result column="reason" jdbcType="VARCHAR" property="reason"/>
   </resultMap>
 
+  <select id="selectByParam" resultType="cn.chendahai.center.content.domain.entity.content.Share">
+    select * from share
+    <where>
+      <if test="title != null and title != ''">
+        title like CONCAT('%',#{title},'%')
+      </if>
+      and audit_status = 'PASS'
+    </where>
+  </select>
+
 
 </mapper>
