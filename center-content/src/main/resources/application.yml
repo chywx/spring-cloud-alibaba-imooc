@@ -62,6 +62,7 @@ logging:
 #    root: debug
     com.itmuch.contentcenter.feignclient.UserCenterFeignClient: debug
     com.alibaba.nacos: error
+    cn.chendahai.center.content.dao.content: debug
 feign:
   sentinel:
 
@@ -98,3 +99,6 @@ jwt:
   secret: aaaaaaabbbbbbcccccdddddaaaaaaabbbbbbcccccdddddaaaaaaabbbbbbcccccddddd
   # 有效期，单位秒，默认2周
   expire-time-in-second: 1209600
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
