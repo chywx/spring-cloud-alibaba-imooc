@@ -1,5 +1,6 @@
 package cn.chendahai.center.content.service.content;
 
+import cn.chendahai.center.content.dao.content.MidUserShareMapper;
 import cn.chendahai.center.content.dao.content.ShareMapper;
 import cn.chendahai.center.content.dao.messaging.RocketmqTransactionLogMapper;
 import cn.chendahai.center.content.domain.dto.content.PageDTO;
@@ -7,6 +8,7 @@ import cn.chendahai.center.content.domain.dto.content.ShareAuditDTO;
 import cn.chendahai.center.content.domain.dto.content.ShareDTO;
 import cn.chendahai.center.content.domain.dto.messaging.UserAddBonusMsgDTO;
 import cn.chendahai.center.content.domain.dto.user.UserDTO;
+import cn.chendahai.center.content.domain.entity.content.MidUserShare;
 import cn.chendahai.center.content.domain.entity.content.Share;
 import cn.chendahai.center.content.domain.enums.AuditStatusEnum;
 import cn.chendahai.center.content.feignclient.UserCenterFeignClient;
@@ -15,6 +17,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import java.util.List;
 import java.util.Objects;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -33,6 +36,7 @@ public class ShareService {
     private final UserCenterFeignClient userCenterFeignClient;
     //    private final RocketMQTemplate rocketMQTemplate;
     private final RocketmqTransactionLogMapper rocketmqTransactionLogMapper;
+    private final MidUserShareMapper midUserShareMapper;
 
     public ShareDTO findById(Integer id) {
         // 获取分享详情
@@ -125,6 +129,47 @@ public class ShareService {
         PageHelper.startPage(pageDTO.getPageNo(), pageDTO.getPageSize());
         List<Share> shares = this.shareMapper.selectByParam(title);
         return new PageInfo<>(shares);
+    }
+
+    public Share exchangeById(Integer id, HttpServletRequest request) {
+        Integer userId = (Integer) request.getAttribute("id");
+        UserDTO userDTO = this.userCenterFeignClient.findById(userId);
+        // 1.根据id查询share，校验是否存在
+
+        Share share = this.shareMapper.selectByPrimaryKey(id);
+        if (share == null) {
+            throw new IllegalArgumentException("改分享不存在！");
+        }
+        MidUserShare midUserShare = this.midUserShareMapper.selectOne(
+            MidUserShare.builder()
+                .shareId(id)
+                .userId(userId)
+                .build()
+        );
+        // 如果兑换过了，直接返回
+        if (midUserShare != null) {
+            return share;
+        }
+        // 2. 根据当前登录的用户id，查询几分是否够
+
+        if (share.getPrice() > userDTO.getBonus()) {
+            throw new IllegalArgumentException("用户的几分不够用！");
+        }
+
+        // 3. 扣减几分&插入记录
+        this.userCenterFeignClient.addBonus(
+            UserAddBonusMsgDTO.builder()
+                .userId(userId)
+                .bonus(0 - share.getPrice())
+                .build()
+        );
+        midUserShareMapper.insert(
+            MidUserShare.builder()
+                .userId(userId)
+                .shareId(id)
+                .build()
+        );
+        return share;
     }
 
 //    @Transactional(rollbackFor = Exception.class)

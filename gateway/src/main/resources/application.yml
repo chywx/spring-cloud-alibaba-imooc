@@ -29,7 +29,7 @@ spring:
         - id: content_route
           uri: lb://center-content
           predicates:
-            - Path=/shares/**,/admin/**
+            - Path=/shares/**,/admin/**,/notices/**
 
 # http://localhost:8040/actuator/gateway/routes 展示所有路由列表
 management:

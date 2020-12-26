@@ -41,8 +41,8 @@ public class UserController {
     @GetMapping("/gen-token")
     public String genToken() {
         Map<String, Object> userInfo = new HashMap<>(3);
-        userInfo.put("id", 1);
-        userInfo.put("wxNickname", "大目");
+        userInfo.put("id", 12);
+        userInfo.put("wxNickname", "Dylan");
         userInfo.put("role", "admin");
         return this.jwtOperator.generateToken(userInfo);
     }

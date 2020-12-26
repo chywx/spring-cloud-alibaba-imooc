@@ -21,13 +21,20 @@ public class BonusController {
     @PutMapping("/add-bonus")
     public User addBonus(@RequestBody UserAddBonseDTO userAddBonseDTO) {
         System.out.println(">>>enter controller add-bonus");
+        if (userAddBonseDTO.getBonus() < 0) {
+            userAddBonseDTO.setEvent("BUY");
+            userAddBonseDTO.setDescription("兑换分享。。。");
+        } else {
+            userAddBonseDTO.setEvent("CONTRIBUTE");
+            userAddBonseDTO.setDescription("投稿加积分。。。");
+        }
         Integer userId = userAddBonseDTO.getUserId();
         userService.addBonus(
             UserAddBonusMsgDTO.builder()
                 .userId(userId)
                 .bonus(userAddBonseDTO.getBonus())
-                .description("兑换分享...")
-                .event("BUY")
+                .description(userAddBonseDTO.getDescription())
+                .event(userAddBonseDTO.getEvent())
                 .build()
         );
         return this.userService.findById(userId);
