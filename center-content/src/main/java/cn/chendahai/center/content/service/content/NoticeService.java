@@ -1,7 +1,7 @@
 package cn.chendahai.center.content.service.content;
 
 import cn.chendahai.center.content.dao.content.NoticeMapper;
-import cn.chendahai.center.content.domain.dto.content.Notice;
+import cn.chendahai.center.content.domain.entity.content.Notice;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

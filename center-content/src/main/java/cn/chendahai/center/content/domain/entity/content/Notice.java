@@ -1,4 +1,4 @@
-package cn.chendahai.center.content.domain.dto.content;/**
+package cn.chendahai.center.content.domain.entity.content;/**
  * @author chy
  * @date 2020/12/26 0026 下午 15:32
  * Description：

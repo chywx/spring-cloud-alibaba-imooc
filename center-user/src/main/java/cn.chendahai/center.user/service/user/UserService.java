@@ -93,4 +93,8 @@ public class UserService {
         }
         return user;
     }
+
+    public int checkSign(Integer userId) {
+        return userMapper.checkSign(userId);
+    }
 }

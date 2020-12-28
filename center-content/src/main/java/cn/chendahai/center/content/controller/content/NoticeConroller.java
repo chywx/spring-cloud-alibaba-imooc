@@ -1,6 +1,6 @@
 package cn.chendahai.center.content.controller.content;
 
-import cn.chendahai.center.content.domain.dto.content.Notice;
+import cn.chendahai.center.content.domain.entity.content.Notice;
 import cn.chendahai.center.content.service.content.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,6 +2,8 @@ package cn.chendahai.center.user.dao.user;
 
 
 import cn.chendahai.center.user.domain.entity.user.User;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import tk.mybatis.mapper.common.Mapper;
 
 /**
@@ -9,4 +11,7 @@ import tk.mybatis.mapper.common.Mapper;
  * // 面试题，加分 6
  */
 public interface UserMapper extends Mapper<User> {
+
+    @Select("SELECT count(*) FROM `bonus_event_log` where DATE_FORMAT(now(),'%Y-%m-%d') = DATE_FORMAT(create_time,'%Y-%m-%d') and user_id = #{userId} and event = 'sign'")
+    int checkSign(@Param("userId") Integer userId);
 }

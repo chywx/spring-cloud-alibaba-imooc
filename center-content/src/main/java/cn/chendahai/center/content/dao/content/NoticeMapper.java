@@ -1,7 +1,7 @@
 package cn.chendahai.center.content.dao.content;
 
 
-import cn.chendahai.center.content.domain.dto.content.Notice;
+import cn.chendahai.center.content.domain.entity.content.Notice;
 import org.apache.ibatis.annotations.Select;
 import tk.mybatis.mapper.common.Mapper;
 
