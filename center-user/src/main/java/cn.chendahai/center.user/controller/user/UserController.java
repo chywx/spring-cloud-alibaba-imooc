@@ -3,13 +3,17 @@ package cn.chendahai.center.user.controller.user;
 import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.chendahai.center.user.auth.CheckLogin;
+import cn.chendahai.center.user.dao.bonus.BonusEventLogMapper;
 import cn.chendahai.center.user.domain.dto.user.JwtTokenRespDTO;
 import cn.chendahai.center.user.domain.dto.user.LoginRespDTO;
 import cn.chendahai.center.user.domain.dto.user.UserLoginDTO;
 import cn.chendahai.center.user.domain.dto.user.UserRespDTO;
+import cn.chendahai.center.user.domain.entity.bonus.BonusEventLog;
 import cn.chendahai.center.user.domain.entity.user.User;
 import cn.chendahai.center.user.service.user.UserService;
 import cn.chendahai.center.user.util.JwtOperator;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -24,9 +28,11 @@ import java.util.Map;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
 public class UserController {
+
     private final UserService userService;
     private final WxMaService wxMaService;
     private final JwtOperator jwtOperator;
+    private final BonusEventLogMapper bonusEventLogMapper;
 
     @GetMapping("/{id}")
     @CheckLogin
@@ -92,5 +98,12 @@ public class UserController {
                     .build()
             )
             .build();
+    }
+
+    @GetMapping("/bonus-logs")
+    public List<BonusEventLog> bonusLogs(HttpServletRequest request) {
+        Integer userId = (Integer) request.getAttribute("id");
+        List<BonusEventLog> bonusEventLogs = bonusEventLogMapper.selectByUserId(userId);
+        return bonusEventLogs;
     }
 }
