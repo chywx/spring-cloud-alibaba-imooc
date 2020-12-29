@@ -32,5 +32,13 @@
     </where>
   </select>
 
+  <select id="selectByIds" resultType="cn.chendahai.center.content.domain.entity.content.Share">
+    select * from share
+    where id in
+    <foreach collection="ids" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+
 
 </mapper>

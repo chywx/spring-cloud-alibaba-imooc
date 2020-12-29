@@ -73,13 +73,14 @@ public class ShareService {
         System.out.println(forEntity.getStatusCode());
     }
 
+
     public Share auditById(Integer id, ShareAuditDTO auditDTO) {
         // 1. 查询share是否存在，不存在或者当前的audit_status != NOT_YET，那么抛异常
         Share share = this.shareMapper.selectByPrimaryKey(id);
         if (share == null) {
             throw new IllegalArgumentException("参数非法！该分享不存在！");
         }
-        if (!Objects.equals("NOT_YET", share.getAuditStatus())) {
+        if (!Objects.equals(AuditStatusEnum.NOT_YET.name(), share.getAuditStatus())) {
             throw new IllegalArgumentException("参数非法！该分享已审核通过或审核不通过！");
         }
 

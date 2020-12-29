@@ -1,5 +1,6 @@
 package cn.chendahai.center.content.domain.enums;
 
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -17,5 +18,11 @@ public enum AuditStatusEnum {
     /**
      * 审核不通过
      */
-    REJECT
+    REJECT;
+
+    public static void main(String[] args) {
+        System.out.println(AuditStatusEnum.NOT_YET);
+        System.out.println(Objects.equals(AuditStatusEnum.NOT_YET, "NOT_YET"));
+        System.out.println(Objects.equals(AuditStatusEnum.NOT_YET.name(), "NOT_YET"));
+    }
 }
