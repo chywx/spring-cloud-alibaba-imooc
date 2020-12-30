@@ -101,6 +101,7 @@ public class UserController {
     }
 
     @GetMapping("/bonus-logs")
+    @CheckLogin
     public List<BonusEventLog> bonusLogs(HttpServletRequest request) {
         Integer userId = (Integer) request.getAttribute("id");
         List<BonusEventLog> bonusEventLogs = bonusEventLogMapper.selectByUserId(userId);

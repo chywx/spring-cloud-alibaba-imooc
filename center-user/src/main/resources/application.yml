@@ -53,3 +53,6 @@ management:
   endpoint:
     health:
       show-details: always
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
