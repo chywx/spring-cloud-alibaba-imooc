@@ -4,7 +4,7 @@ spring:
   profiles:
     active: chy
   datasource:
-    url: jdbc:mysql://localhost:3306/center_user
+    url: jdbc:mysql://localhost:3306/ray
     hikari:
       username: root
       password: 123456
