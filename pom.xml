@@ -13,6 +13,7 @@
     <module>center-content</module>
     <module>center-user</module>
     <module>gateway</module>
+    <module>ray</module>
   </modules>
 
   <name>spring-cloud-alibaba-imooc</name>

@@ -1,0 +1,40 @@
+server:
+  port: 8040
+spring:
+  profiles:
+    active: chy
+  datasource:
+    url: jdbc:mysql://localhost:3306/center_user
+    hikari:
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  application:
+    # 服务名称尽量用-，不要用_，不要用特殊字符
+    name: ray
+
+  main:
+    allow-bean-definition-overriding: true
+
+
+
+logging:
+  level:
+    #    root: debug
+    cn.chendahai.center.content.dao.content: debug
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+jwt:
+  secret: aaaaaaabbbbbbcccccdddddaaaaaaabbbbbbcccccdddddaaaaaaabbbbbbcccccddddd
+  # 有效期，单位秒，默认2周
+  expire-time-in-second: 1209600
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
