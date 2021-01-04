@@ -5,9 +5,7 @@ import cn.chendahai.ray.dao.ShareMapper;
 import cn.chendahai.ray.dto.PageDTO;
 import cn.chendahai.ray.dto.ShareAuditDTO;
 import cn.chendahai.ray.dto.ShareDTO;
-import cn.chendahai.ray.dto.UserAddBonseDTO;
 import cn.chendahai.ray.dto.UserAddBonusMsgDTO;
-import cn.chendahai.ray.dto.UserDTO;
 import cn.chendahai.ray.entity.MidUserShare;
 import cn.chendahai.ray.entity.Share;
 import cn.chendahai.ray.entity.User;
@@ -80,13 +78,15 @@ public class ShareService {
 
         // 3. 如果是PASS，那么发送消息给rocketmq，让用户中心去消费，并为发布人添加积分
         if (AuditStatusEnum.PASS.equals(auditDTO.getAuditStatusEnum())) {
-            // 发送半消息。。
-
-            UserAddBonseDTO userAddBonseDTO = UserAddBonseDTO.builder()
-                .userId(share.getUserId())
-                .bonus(5)
-                .build();
-            userService.receive(userAddBonseDTO);
+            // 添加积分
+            userService.addBonus(
+                UserAddBonusMsgDTO.builder()
+                    .userId(share.getUserId())
+                    .bonus(50)
+                    .description("投稿加积分。。。")
+                    .event("CONTRIBUTE")
+                    .build()
+            );
         } else {
             this.auditByIdInDB(id, auditDTO);
         }
@@ -141,6 +141,8 @@ public class ShareService {
             UserAddBonusMsgDTO.builder()
                 .userId(userId)
                 .bonus(0 - share.getPrice())
+                .event("BUY")
+                .description("兑换分享。。。")
                 .build()
         );
         midUserShareMapper.insert(

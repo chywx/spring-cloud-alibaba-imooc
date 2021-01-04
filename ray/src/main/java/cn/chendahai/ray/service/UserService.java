@@ -2,7 +2,6 @@ package cn.chendahai.ray.service;
 
 import cn.chendahai.ray.dao.BonusEventLogMapper;
 import cn.chendahai.ray.dao.UserMapper;
-import cn.chendahai.ray.dto.UserAddBonseDTO;
 import cn.chendahai.ray.dto.UserAddBonusMsgDTO;
 import cn.chendahai.ray.dto.UserLoginDTO;
 import cn.chendahai.ray.entity.BonusEventLog;
@@ -36,13 +35,6 @@ public class UserService {
     @Transactional(rollbackFor = Exception.class)
     public void addBonus(UserAddBonusMsgDTO msgDTO) {
         System.out.println(">>> <<< enter controller add-bonus");
-        if (msgDTO.getBonus() < 0) {
-            msgDTO.setEvent("BUY");
-            msgDTO.setDescription("兑换分享。。。");
-        } else {
-            msgDTO.setEvent("CONTRIBUTE");
-            msgDTO.setDescription("投稿加积分。。。");
-        }
         System.out.println(">>>addBonus>>>" + JSONObject.toJSONString(msgDTO));
         // 1. 为用户加积分
         Integer userId = msgDTO.getUserId();
@@ -63,17 +55,6 @@ public class UserService {
                 .build()
         );
         log.info("积分添加完毕...");
-    }
-
-    public void receive(UserAddBonseDTO userAddBonseDTO) {
-        BonusEventLog bonusEventLog = BonusEventLog.builder()
-            .userId(userAddBonseDTO.getUserId())
-            .value(userAddBonseDTO.getBonus())
-            .event("CONTRIBUTE")
-            .createTime(new Date())
-            .description("chy desc")
-            .build();
-        bonusEventLogMapper.insert(bonusEventLog);
     }
 
     public User login(UserLoginDTO loginDTO, String openId) {
