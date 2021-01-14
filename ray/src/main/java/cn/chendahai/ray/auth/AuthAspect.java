@@ -1,5 +1,6 @@
 package cn.chendahai.ray.auth;
 
+import cn.chendahai.ray.security.SecurityException;
 import cn.chendahai.ray.util.JwtOperator;
 import io.jsonwebtoken.Claims;
 import java.lang.reflect.Method;

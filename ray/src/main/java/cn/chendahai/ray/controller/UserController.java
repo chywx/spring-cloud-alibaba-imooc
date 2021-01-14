@@ -69,6 +69,7 @@ public class UserController {
         // 看用户是否注册，如果没有注册就（插入）
         // 如果已经注册
         User user = this.userService.login(loginDTO, openid);
+        user.buildUnicodeWxNickname();
 
         // 颁发token
         Map<String, Object> userInfo = new HashMap<>(3);

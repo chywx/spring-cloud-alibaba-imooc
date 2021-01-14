@@ -89,6 +89,15 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.github.binarywang/java-emoji-converter -->
+    <dependency>
+      <groupId>com.github.binarywang</groupId>
+      <artifactId>java-emoji-converter</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+
+
   </dependencies>
 
   <build>

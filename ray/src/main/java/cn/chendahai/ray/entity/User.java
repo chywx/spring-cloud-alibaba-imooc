@@ -1,5 +1,6 @@
 package cn.chendahai.ray.entity;
 
+import com.github.binarywang.java.emoji.EmojiConverter;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "user")
 public class User {
+
     /**
      * Id
      */
@@ -62,4 +64,18 @@ public class User {
      * 积分
      */
     private Integer bonus;
+
+    public void buildUnicodeWxNickname() {
+        if (this.wxNickname != null) {
+            EmojiConverter emojiConverter = EmojiConverter.getInstance();
+            setWxNickname(emojiConverter.toUnicode(this.wxNickname));
+        }
+    }
+
+    public void buildAliaseWxNickname() {
+        if (this.wxNickname != null) {
+            EmojiConverter emojiConverter = EmojiConverter.getInstance();
+            setWxNickname(emojiConverter.toAlias(this.wxNickname));
+        }
+    }
 }
