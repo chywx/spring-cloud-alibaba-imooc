@@ -32,8 +32,8 @@ public class BonusController {
     @CheckLogin
     public User sign(HttpServletRequest request) {
         Integer userId = (Integer) request.getAttribute("id");
-        int count = userService.checkSign(userId);
-        log.info("userId: {},count: {}", userId, count);
+        int count = userService.checkSign(userId, "sign");
+        log.info("sign userId: {},count: {}", userId, count);
         if (count == 0) {
             userService.addBonus(
                 UserAddBonusMsgDTO.builder()

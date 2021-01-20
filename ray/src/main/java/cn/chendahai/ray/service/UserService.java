@@ -121,7 +121,7 @@ public class UserService {
         return user;
     }
 
-    public int checkSign(Integer userId) {
-        return userMapper.checkSign(userId);
+    public int checkSign(Integer userId, String event) {
+        return userMapper.checkSign(userId, event);
     }
 }

@@ -6,12 +6,14 @@ import cn.chendahai.ray.auth.CheckLogin;
 import cn.chendahai.ray.dao.BonusEventLogMapper;
 import cn.chendahai.ray.dto.JwtTokenRespDTO;
 import cn.chendahai.ray.dto.LoginRespDTO;
+import cn.chendahai.ray.dto.UserAddBonusMsgDTO;
 import cn.chendahai.ray.dto.UserLoginDTO;
 import cn.chendahai.ray.dto.UserRespDTO;
 import cn.chendahai.ray.entity.BonusEventLog;
 import cn.chendahai.ray.entity.User;
 import cn.chendahai.ray.service.UserService;
 import cn.chendahai.ray.util.JwtOperator;
+import io.jsonwebtoken.Claims;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,11 +21,13 @@ import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,6 +47,30 @@ public class UserController {
     public User findById(@PathVariable Integer id) {
         log.info("我被请求了...");
         return this.userService.findById(id);
+    }
+
+    @GetMapping("/forward")
+    @CheckLogin
+    public void forward(@RequestHeader(value = "X-Token", required = false) String token) {
+        if (StringUtils.isEmpty(token)) {
+            return;
+        }
+
+        Claims claims = jwtOperator.getClaimsFromToken(token);
+        Integer userId = (Integer) claims.get("id");
+
+        int count = userService.checkSign(userId, "FORWARD");
+        log.info("FORWARD userId: {},count: {}", userId, count);
+        if (count == 0) {
+            userService.addBonus(
+                UserAddBonusMsgDTO.builder()
+                    .userId(userId)
+                    .bonus(3)
+                    .description("分享")
+                    .event("FORWARD")
+                    .build()
+            );
+        }
     }
 
     /**

@@ -13,8 +13,10 @@ import cn.chendahai.ray.enums.AuditStatusEnum;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -105,11 +107,32 @@ public class ShareService {
         // 4. 把share写到缓存
     }
 
-    public PageInfo<Share> q(String title, PageDTO pageDTO) {
+    public PageInfo<Share> q(String title, PageDTO pageDTO, Integer userId) {
         PageHelper.startPage(pageDTO.getPageNo(), pageDTO.getPageSize());
         List<Share> shares = this.shareMapper.selectByParam(title);
+
+        // 用户未登录，downloadurl设置为null
+        if (userId == null) {
+            shares = shares.stream().peek(p -> p.setDownloadUrl(null)).collect(Collectors.toList());
+        } else {
+            // 已登录查看用户是否已经兑换
+            shares = shares.stream().peek(p -> {
+                // 不等于该用户id且查询的midUserShare为null，downloadurl设置为null
+                if (!p.getUserId().equals(userId)) {
+                    MidUserShare midUserShare = midUserShareMapper.selectOne(
+                        MidUserShare.builder().userId(userId)
+                            .shareId(p.getId())
+                            .build()
+                    );
+                    if (midUserShare == null) {
+                        p.setDownloadUrl(null);
+                    }
+                }
+            }).collect(Collectors.toList());
+        }
         return new PageInfo<>(shares);
     }
+
 
     public Share exchangeById(Integer id, HttpServletRequest request) {
         Integer userId = (Integer) request.getAttribute("id");

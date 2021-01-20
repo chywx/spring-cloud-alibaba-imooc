@@ -10,13 +10,16 @@ import cn.chendahai.ray.entity.MidUserShare;
 import cn.chendahai.ray.entity.Share;
 import cn.chendahai.ray.enums.AuditStatusEnum;
 import cn.chendahai.ray.service.ShareService;
+import cn.chendahai.ray.util.JwtOperator;
 import com.github.pagehelper.PageInfo;
+import io.jsonwebtoken.Claims;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +38,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ShareConroller {
 
+    private final JwtOperator jwtOperator;
+
     private final ShareService shareService;
 
     private final ShareMapper shareMapper;
@@ -41,13 +47,22 @@ public class ShareConroller {
     private final MidUserShareMapper midUserShareMapper;
 
     @GetMapping("/{id}")
+    @CheckLogin
     public ShareDTO findById(@PathVariable Integer id) {
         return this.shareService.findById(id);
     }
 
     @GetMapping("/q")
-    public PageInfo<Share> q(String title, PageDTO pageDTO) {
-        return shareService.q(title, pageDTO);
+    public PageInfo<Share> q(String title, PageDTO pageDTO,
+        @RequestHeader(value = "X-Token", required = false) String token) {
+
+        Integer userId = null;
+        if (StringUtils.isNotEmpty(token)) {
+            Claims claims = jwtOperator.getClaimsFromToken(token);
+            userId = (Integer) claims.get("id");
+        }
+
+        return shareService.q(title, pageDTO, userId);
     }
 
     /*
