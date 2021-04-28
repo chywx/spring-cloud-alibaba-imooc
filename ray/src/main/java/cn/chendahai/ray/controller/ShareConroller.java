@@ -58,8 +58,13 @@ public class ShareConroller {
 
         Integer userId = null;
         if (StringUtils.isNotEmpty(token)) {
-            Claims claims = jwtOperator.getClaimsFromToken(token);
-            userId = (Integer) claims.get("id");
+            System.out.println("token:" + token);
+            try {
+                Claims claims = jwtOperator.getClaimsFromToken(token);
+                userId = (Integer) claims.get("id");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         return shareService.q(title, pageDTO, userId);
