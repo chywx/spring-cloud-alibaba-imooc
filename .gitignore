@@ -33,3 +33,6 @@ build/
 
 application-chy.yml
 application-prod.yml
+
+test/
+
